@@ -1,4 +1,7 @@
 import {createContentLoader} from 'vitepress'
+
+console.log('global: ', globalThis.VITEPRESS_CONFIG)
+
 export default createContentLoader('posts/**/*.md', {
   excerpt: true,
   transform(raw) {

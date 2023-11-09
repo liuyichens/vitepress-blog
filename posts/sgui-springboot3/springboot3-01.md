@@ -16,6 +16,8 @@ permalink: /pages/d337fa
 
 ---
 
+# {{$frontmatter.title}}
+
 ## 1. SpringBoot 是什么
 
 SpringBoot 是一个快速开发框架，它封装了 Spring 框架，简化了 Spring 框架的使用，提供了各种开箱即用的功能。只需要编写少量的配置即可快速整合第三方框架

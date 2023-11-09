@@ -6,8 +6,15 @@ export default defineConfig({
   description: "A VitePress Site",
   markdown: {
     lineNumbers: true,
+    headers: {
+      level: [2, 3]
+    },
+    toc: {
+
+    }
   },
   themeConfig: {
+    pageSize: 10,
     search: {
       provider: "local",
     },
@@ -23,13 +30,19 @@ export default defineConfig({
     socialLinks: [
       { icon: "github", link: "https://github.com/vuejs/vitepress" },
     ],
+    footer: {
+      message:
+        'Released under the <a href="https://github.com/vuejs/vitepress/blob/main/LICENSE">MIT License</a>.',
+      copyright:
+        'Copyright © 2019-present <a href="https://github.com/yyx990803">Evan You</a>',
+    },
   },
 });
 
 function nav() {
   return [
     { text: "Home", link: "/" },
-    { text: "Blog", link: "/blog/" },
+    { text: "Blog", link: "/blog/", activeMatch: "/blog/" },
     { text: "Examples", link: "/examples/", activeMatch: "/examples/" },
   ];
 }

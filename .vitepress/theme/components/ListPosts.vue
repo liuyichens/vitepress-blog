@@ -1,5 +1,16 @@
 <script setup name="home">
-import { data as posts } from "../scripts/posts.data.js";
+import { computed } from "vue";
+import { useData } from "vitepress";
+import { data as posts } from "../../../utils/posts.data";
+const { params } = useData();
+const PAGE_SIZE = 10;
+
+const currentPosts = computed(() => {
+  const { page } = params.value || { page: 1 };
+  const start = (page - 1) * PAGE_SIZE;
+  const end = start + PAGE_SIZE;
+  return posts.slice(start, end);
+});
 </script>
 
 <template>
@@ -8,11 +19,11 @@ import { data as posts } from "../scripts/posts.data.js";
       <div class="content">
         <div class="content-container">
           <ul class="space-y-16">
-            <li v-for="{ title, url, date, excerpt } of posts">
+            <li v-for="{ title, url, date, excerpt } of currentPosts">
               <article class="relative group">
                 <div class="realtive">
                   <h3
-                    class="text-base font-semibold tracking-tight text-slate-900 dark:text-slate-200 pt-8 lg:pt-0"
+                    class="text-base font-semibold tracking-tight text-slate-900 dark:text-slate-200"
                   >
                     <a :href="url">
                       {{ title }}
@@ -24,22 +35,22 @@ import { data as posts } from "../scripts/posts.data.js";
                     {{ date.string }}
                   </div>
                   <div
-                    class="mt-2 mb-4 prose prose-slate prose-a:relative prose-a:z-10 dark:prose-dark line-clamp-2"
+                    class="mt-2 mb-4 prose prose-slate prose-a:relative prose-a:z-10 dark:prose-invert max-w-none line-clamp-2"
                     v-html="excerpt"
                   ></div>
                 </div>
                 <a
-                  class="flex items-center text-sm text-sky-500 font-medium"
+                  class="flex items-center text-sm text-[--vp-c-brand-1] font-medium"
                   :href="url"
                 >
                   <span class="relative"
-                    >Read more<span class="sr-only"
+                    >阅读全文<span class="sr-only"
                       >, Meet Studio: Our beautiful new agency site
                       template</span
                     ></span
                   >
                   <svg
-                    class="relative mt-px overflow-visible ml-2.5 text-sky-300 dark:text-sky-700"
+                    class="relative mt-px overflow-visible ml-2.5 text-[--vp-c-brand-1]"
                     width="3"
                     height="6"
                     viewBox="0 0 3 6"
@@ -75,52 +86,42 @@ import { data as posts } from "../scripts/posts.data.js";
   </div>
 </template>
 <style scoped>
-
-
 .home-container {
-  padding: 32px 24px 96px;
+  padding: 32px 24px 20px;
 }
 
 @media (min-width: 768px) {
   .home-container {
-    padding: 48px 32px 128px;
+    padding: 32px 32px 20px;
   }
 }
 
 @media (min-width: 960px) {
   .home-container {
-    padding: 32px 32px 0;
+    padding: 32px 32px 20px;
   }
 
   .home-container .container {
     display: flex;
-    justify-content: center;
-    max-width: 992px;
+    justify-content: space-between;
+    gap: 20px;
   }
 
   .home-container .content {
-    max-width: 752px;
+    width: 70%;
+    flex: 1;
   }
 }
 
 @media (min-width: 1280px) {
-  .home-container .container {
-    display: flex;
-    justify-content: center;
-  }
-
   .home-container .aside {
     display: block;
   }
 }
 
 @media (min-width: 1440px) {
-  .home-container .content {
-    max-width: 784px;
-  }
-
   .home-container .container {
-    max-width: 1104px;
+    max-width: 1200px;
   }
 }
 
@@ -134,7 +135,6 @@ import { data as posts } from "../scripts/posts.data.js";
   display: none;
   order: 2;
   flex-grow: 1;
-  padding-left: 32px;
   width: 100%;
   max-width: 256px;
 }
@@ -176,7 +176,7 @@ import { data as posts } from "../scripts/posts.data.js";
 
 @media (min-width: 960px) {
   .content {
-    padding: 0 32px 128px;
+    padding: 0 32px 80px;
   }
 }
 
@@ -191,9 +191,4 @@ import { data as posts } from "../scripts/posts.data.js";
 .content-container {
   margin: 0 auto;
 }
-
-.home-container .content-container {
-  max-width: 688px;
-}
-
 </style>
