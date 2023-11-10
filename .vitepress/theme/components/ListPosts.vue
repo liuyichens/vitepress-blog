@@ -1,12 +1,18 @@
 <script setup name="home">
-import { computed } from "vue";
+import { ref, computed } from "vue";
 import { useData } from "vitepress";
 import { data as posts } from "../../../utils/posts.data";
+import { blogConfig } from "../../../config";
 const { params } = useData();
-const PAGE_SIZE = 10;
+const PAGE_SIZE = blogConfig.pageSize;
+
+const totalPage = Math.ceil(posts.length / PAGE_SIZE);
+
+const currentPage = ref(1);
 
 const currentPosts = computed(() => {
   const { page } = params.value || { page: 1 };
+  currentPage.value = page;
   const start = (page - 1) * PAGE_SIZE;
   const end = start + PAGE_SIZE;
   return posts.slice(start, end);
@@ -66,6 +72,34 @@ const currentPosts = computed(() => {
               </article>
             </li>
           </ul>
+          <div class="pagination-wrapper">
+            <ul class="pages flex">
+              <li class="page-pre">
+                <a href="/blog/">←</a>
+              </li>
+              <li
+                v-for="(_, index) in totalPage"
+                :key="index"
+                :class="[
+                  'page-item',
+                  `page-item-${index + 1}`,
+                  index + 1 === currentPage ? 'page-item-active' : '',
+                ]"
+              >
+                <a :href="`/blog/${index === 0 ? '' : index + 1}`">{{
+                  index + 1 > 10 ? index + 1 : "0" + (index + 1)
+                }}</a>
+              </li>
+              <li class="page-next">
+                <a
+                  :href="`/blog/${
+                    currentPage === totalPage ? totalPage : currentPage + 1
+                  }`"
+                  >→</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div class="aside">

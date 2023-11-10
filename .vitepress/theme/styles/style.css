@@ -6,32 +6,35 @@
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
 
-.VPDoc:not(.has-sidebar).has-aside>.container {
+.VPDoc:not(.has-sidebar).has-aside > .container {
   display: flex;
   justify-content: space-between;
   gap: 20px;
 }
 
-.VPDoc:not(.has-sidebar).has-aside>.container>.aside {
+.VPDoc:not(.has-sidebar).has-aside > .container > .aside {
   order: 1;
   padding-left: 0;
   max-width: 256px;
 }
 
-.VPDoc:not(.has-sidebar).has-aside>.container>.content {
+.VPDoc:not(.has-sidebar).has-aside > .container > .content {
   order: 2;
   flex: 1;
   width: 70%;
 }
-.VPDoc:not(.has-sidebar).has-aside>.container>.content>.content-container {
+.VPDoc:not(.has-sidebar).has-aside
+  > .container
+  > .content
+  > .content-container {
   max-width: 100%;
 }
 
 @media (min-width: 960px) {
-  .VPDoc:not(.has-sidebar).has-aside>.container {
+  .VPDoc:not(.has-sidebar).has-aside > .container {
     justify-content: space-between;
   }
-  .VPDoc:not(.has-sidebar).has-aside>.container>.content {
+  .VPDoc:not(.has-sidebar).has-aside > .container > .content {
     max-width: unset;
     flex: 1;
     width: 70%;
@@ -39,17 +42,17 @@
 }
 
 @media (min-width: 1440px) {
-  .VPDoc:not(.has-sidebar).has-aside>.container {
+  .VPDoc:not(.has-sidebar).has-aside > .container {
     max-width: 1200px;
   }
 }
 
-.VPFooter{
+.VPFooter {
   padding-top: 10px !important;
   padding-bottom: 10px !important;
 }
 
-.VPFooter>.container {
+.VPFooter > .container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -62,7 +65,7 @@
     padding-top: 20px !important;
     padding-bottom: 20px !important;
   }
-  .VPFooter>.container {
+  .VPFooter > .container {
     flex-direction: row;
   }
 }
@@ -77,3 +80,20 @@
   color: #fff;
   border-bottom-color: var(--vp-c-brand-1);
 } */
+
+.page-item,
+.page-pre,
+.page-next {
+  @apply flex justify-center items-center min-w-[2rem] h-8 leading-[1.9375rem] cursor-pointer
+    select-none;
+}
+
+.page-item a {
+  @apply relative block flex-1 text-center font-mono tracking-tighter;
+}
+
+.page-item.page-item-active  a {
+  @apply text-black dark:text-slate-200 
+    after:absolute after:top-[25%] after:right-[25%] after:w-[6px] after:h-[6px]
+    after:opacity-90 after:rounded-full after:bg-[var(--vp-c-brand-1)];
+}

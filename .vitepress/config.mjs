@@ -1,5 +1,7 @@
 import { defineConfig } from "vitepress";
 
+console.log('config')
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "My Awesome Project",
@@ -9,12 +11,8 @@ export default defineConfig({
     headers: {
       level: [2, 3]
     },
-    toc: {
-
-    }
   },
   themeConfig: {
-    pageSize: 10,
     search: {
       provider: "local",
     },

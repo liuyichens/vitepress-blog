@@ -1,8 +1,8 @@
 import {createContentLoader} from 'vitepress'
+import { blogConfig } from '../config'
+const blogPatern = `${blogConfig.blogPattern}/**/*.md`
 
-console.log('global: ', globalThis.VITEPRESS_CONFIG)
-
-export default createContentLoader('posts/**/*.md', {
+export default createContentLoader(blogPatern, {
   excerpt: true,
   transform(raw) {
     return raw

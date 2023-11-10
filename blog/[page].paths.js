@@ -1,6 +1,9 @@
 import { globby } from "globby";
+import { blogConfig } from "../config";
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = blogConfig.pageSize;
+
+console.log('page')
 
 async function getFiles() {
   let paths = await globby([`posts/**/*.md`]);
