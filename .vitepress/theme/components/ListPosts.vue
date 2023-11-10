@@ -1,6 +1,8 @@
 <script setup name="home">
+import PageTemplate from "./PageTemplate.vue";
+import ListArticleItem from "./ListArticleItem.vue";
 import { ref, computed } from "vue";
-import { useData } from "vitepress";
+import { useData, useRouter } from "vitepress";
 import { data as posts } from "../../../utils/posts.data";
 import { blogConfig } from "../../../config";
 const { params } = useData();
@@ -10,6 +12,25 @@ const totalPage = Math.ceil(posts.length / PAGE_SIZE);
 
 const currentPage = ref(1);
 
+const tags = computed(() => {
+  const allTags = posts.map((p) => p.tags).flat();
+  return [...new Set(allTags)];
+});
+
+const categories = computed(() => {
+  const categoryObj = {};
+  posts.forEach((p) =>
+    p.category.forEach((c) => {
+      if (Object.keys(categoryObj).includes(c)) {
+        categoryObj[c]++;
+      } else {
+        categoryObj[c] = 1;
+      }
+    })
+  );
+  return categoryObj;
+});
+
 const currentPosts = computed(() => {
   const { page } = params.value || { page: 1 };
   currentPage.value = page;
@@ -17,212 +38,105 @@ const currentPosts = computed(() => {
   const end = start + PAGE_SIZE;
   return posts.slice(start, end);
 });
+
+const router = useRouter();
+const goPage = (page) => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+  router.go(`/blog/${page}`);
+};
 </script>
 
 <template>
-  <div class="home-container">
-    <div class="container">
-      <div class="content">
-        <div class="content-container">
-          <ul class="space-y-16">
-            <li v-for="{ title, url, date, excerpt } of currentPosts">
-              <article class="relative group">
-                <div class="realtive">
-                  <h3
-                    class="text-base font-semibold tracking-tight text-slate-900 dark:text-slate-200"
-                  >
-                    <a :href="url">
-                      {{ title }}
-                    </a>
-                  </h3>
-                  <div
-                    class="whitespace-nowrap text-sm leading-6 dark:text-slate-400"
-                  >
-                    {{ date.string }}
-                  </div>
-                  <div
-                    class="mt-2 mb-4 prose prose-slate prose-a:relative prose-a:z-10 dark:prose-invert max-w-none line-clamp-2"
-                    v-html="excerpt"
-                  ></div>
-                </div>
-                <a
-                  class="flex items-center text-sm text-[--vp-c-brand-1] font-medium"
-                  :href="url"
-                >
-                  <span class="relative"
-                    >阅读全文<span class="sr-only"
-                      >, Meet Studio: Our beautiful new agency site
-                      template</span
-                    ></span
-                  >
-                  <svg
-                    class="relative mt-px overflow-visible ml-2.5 text-[--vp-c-brand-1]"
-                    width="3"
-                    height="6"
-                    viewBox="0 0 3 6"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="M0 0L3 3L0 6"></path>
-                  </svg>
-                </a>
-              </article>
-            </li>
-          </ul>
-          <div class="pagination-wrapper">
-            <ul class="pages flex">
-              <li class="page-pre">
-                <a href="/blog/">←</a>
-              </li>
-              <li
-                v-for="(_, index) in totalPage"
-                :key="index"
-                :class="[
-                  'page-item',
-                  `page-item-${index + 1}`,
-                  index + 1 === currentPage ? 'page-item-active' : '',
-                ]"
-              >
-                <a :href="`/blog/${index === 0 ? '' : index + 1}`">{{
-                  index + 1 > 10 ? index + 1 : "0" + (index + 1)
-                }}</a>
-              </li>
-              <li class="page-next">
-                <a
-                  :href="`/blog/${
-                    currentPage === totalPage ? totalPage : currentPage + 1
-                  }`"
-                  >→</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
+  <PageTemplate>
+    <template #blogList>
+      <ul class="space-y-16">
+        <li
+          v-for="({ title, url, date, excerpt }, index) in currentPosts"
+          class="slide-enter"
+          :style="{
+            '--enter-state': index,
+            '--enter-step': '60ms',
+          }"
+        >
+          <ListArticleItem :url="url" :title="title" :date="date" :excerpt="excerpt"/>
+        </li>
+      </ul>
+    </template>
+    <template #paginationWrapper>
+      <ul class="pages flex">
+        <li class="page-pre">
+          <button :disabled="currentPage === 1" @click="goPage('')">←</button>
+        </li>
+        <li
+          v-for="(_, index) in totalPage"
+          :key="index"
+          :class="[
+            'page-item',
+            `page-item-${index + 1}`,
+            index + 1 === currentPage ? 'page-item-active' : '',
+          ]"
+        >
+          <button
+            :disabled="currentPage === index + 1"
+            @click="goPage(`${index === 0 ? '' : index + 1}`)"
+          >
+            {{ index + 1 > 10 ? index + 1 : "0" + (index + 1) }}
+          </button>
+        </li>
+        <li class="page-next">
+          <button
+            :disabled="currentPage === totalPage"
+            @click="
+              goPage(
+                `${currentPage === totalPage ? totalPage : currentPage + 1}`
+              )
+            "
+          >
+            →
+          </button>
+        </li>
+      </ul>
+    </template>
+    <template #asideList>
+      <div class="">
+        <h5
+          class="widgt-title relative mb-8 lg:mb-3 font-semibold text-slate-900 dark:text-slate-200"
+        >
+          <span class="title relative">分类</span>
+        </h5>
+        <ul class="space-y-6 lg:space-y-2">
+          <li v-for="(count, category, index) in categories" :key="index">
+            <a
+              class="block pl-1 text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300 text-sm"
+              href=""
+            >
+              <span class="mx-1">{{ category }}</span
+              ><sup class="text-[var(--vp-c-brand-1)]">{{ count }}</sup>
+            </a>
+          </li>
+        </ul>
       </div>
-      <div class="aside">
-        <div class="aside-container">
-          <div class="aside-content">
-            <div class="home-aside">
-              <div>
-                <h2>分类</h2>
-              </div>
-              <div>
-                <h2>标签</h2>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="">
+        <h5
+          class="widgt-title relative mb-8 lg:mb-3 font-semibold text-slate-900 dark:text-slate-200"
+        >
+          <span class="title relative">标签</span>
+        </h5>
+        <ul class="space-y-6 lg:space-y-2">
+          <li v-for="(tag, index) in tags" :key="index">
+            <a
+              class="block pl-1 text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300 text-sm"
+              href=""
+            >
+              <span class="mx-1">{{ tag }}</span>
+            </a>
+          </li>
+        </ul>
       </div>
-    </div>
-  </div>
+    </template>
+  </PageTemplate>
 </template>
-<style scoped>
-.home-container {
-  padding: 32px 24px 20px;
-}
-
-@media (min-width: 768px) {
-  .home-container {
-    padding: 32px 32px 20px;
-  }
-}
-
-@media (min-width: 960px) {
-  .home-container {
-    padding: 32px 32px 20px;
-  }
-
-  .home-container .container {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-  }
-
-  .home-container .content {
-    width: 70%;
-    flex: 1;
-  }
-}
-
-@media (min-width: 1280px) {
-  .home-container .aside {
-    display: block;
-  }
-}
-
-@media (min-width: 1440px) {
-  .home-container .container {
-    max-width: 1200px;
-  }
-}
-
-.container {
-  margin: 0 auto;
-  width: 100%;
-}
-
-.aside {
-  position: relative;
-  display: none;
-  order: 2;
-  flex-grow: 1;
-  width: 100%;
-  max-width: 256px;
-}
-
-.aside-container {
-  position: fixed;
-  top: 0;
-  padding-top: calc(
-    var(--vp-nav-height) + var(--vp-layout-top-height, 0px) +
-      var(--vp-doc-top-height, 0px) + 32px
-  );
-  width: 224px;
-  height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
-  scrollbar-width: none;
-}
-
-.aside-content {
-  display: flex;
-  flex-direction: column;
-  min-height: calc(
-    100vh - (var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 32px)
-  );
-  padding-bottom: 32px;
-}
-
-.home-aside {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
-.content {
-  position: relative;
-  margin: 0 auto;
-  width: 100%;
-}
-
-@media (min-width: 960px) {
-  .content {
-    padding: 0 32px 80px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .content {
-    order: 1;
-    margin: 0;
-    min-width: 640px;
-  }
-}
-
-.content-container {
-  margin: 0 auto;
-}
-</style>
+<style scoped></style>

@@ -1,8 +1,8 @@
 <template>
   <Layout>
-    <template #home-features-after>
+    <!-- <template #home-features-after>
       <ListPosts v-if="frontmatter.index" />
-    </template>
+    </template> -->
     <!-- <template #home-features-after>
         <Home/>
     </template> -->
@@ -22,9 +22,10 @@ import ListPosts from "./components/ListPosts.vue";
 const { Layout } = DefaultTheme;
 const { page, frontmatter } = useData();
 
-import { nextTick, provide } from "vue";
+import { nextTick, provide, onMounted, ref } from "vue";
 
 const { isDark } = useData();
+const content = ref();
 
 const enableTransitions = () =>
   "startViewTransition" in document &&

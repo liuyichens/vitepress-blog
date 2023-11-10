@@ -6,7 +6,7 @@ const PAGE_SIZE = blogConfig.pageSize;
 console.log('page')
 
 async function getFiles() {
-  let paths = await globby([`posts/**/*.md`]);
+  let paths = await globby([`${blogConfig.blogPattern}/**/*.md`]);
   return paths.length;
 }
 

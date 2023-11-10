@@ -6,6 +6,31 @@
   --docsearch-primary-color: var(--vp-c-brand-1) !important;
 }
 
+@layer base {
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar:horizontal {
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    background: rgb(var(--vp-c-scrollbar-track));
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--vp-c-scrollbar-thumb));
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--vp-c-scrollbar-thumb-hover));
+  }
+}
+
+.VPHome {
+  padding-bottom: 0 !important;
+}
+
 .VPDoc:not(.has-sidebar).has-aside > .container {
   display: flex;
   justify-content: space-between;
@@ -88,12 +113,18 @@
     select-none;
 }
 
-.page-item a {
+.page-item button {
   @apply relative block flex-1 text-center font-mono tracking-tighter;
 }
 
-.page-item.page-item-active  a {
+.page-item.page-item-active button {
   @apply text-black dark:text-slate-200 
     after:absolute after:top-[25%] after:right-[25%] after:w-[6px] after:h-[6px]
     after:opacity-90 after:rounded-full after:bg-[var(--vp-c-brand-1)];
+}
+
+/* asid widgt */
+.widgt-title .title {
+  @apply after:absolute after:top-[calc(50%-1px)] after:left-[130%]
+  after:w-[30px] after:h-[2px] after:bg-[var(--vp-c-brand-1)];
 }

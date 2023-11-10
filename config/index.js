@@ -1,6 +1,8 @@
 const blogConfig = {
+  defaultAuthor: 'LiuYichen',
+  defaultCategory: 'article',
   pageSize: 10,
-  blogPattern: 'posts',
+  blogPattern: 'blog/detail',
 };
 
 

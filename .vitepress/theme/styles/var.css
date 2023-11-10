@@ -71,6 +71,12 @@
   --vp-c-danger-soft: var(--vp-c-red-soft);
 
   --vp-c-brand-1: #e94328;
+
+  --vp-c-scrollbar: 203 213 225;
+  --vp-c-scrollbar-hover: 148 163 184;
+  --vp-c-scrollbar-track: 241 245 249;
+  --vp-c-scrollbar-thumb: 203 213 225;
+  --vp-c-scrollbar-thumb-hover: 148 163 184;
 }
 
 /**
@@ -133,5 +139,9 @@
 }
 
 .dark {
-  
+  --vp-c-scrollbar: 148 163 184;
+  --vp-c-scrollbar-hover: 71 85 105;
+  --vp-c-scrollbar-track: 30 41 59;
+  --vp-c-scrollbar-thumb: 51 65 85;
+  --vp-c-scrollbar-thumb-hover: 71 85 105;
 }
