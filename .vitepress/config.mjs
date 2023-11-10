@@ -12,7 +12,6 @@ export default defineConfig({
       level: [2, 3]
     },
   },
-  
   ignoreDeadLinks: true,
   themeConfig: {
     search: {
