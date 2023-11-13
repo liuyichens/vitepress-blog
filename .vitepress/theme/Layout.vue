@@ -1,5 +1,11 @@
 <template>
   <Layout>
+    <template #doc-before>
+      <PostTop v-if="frontmatter.blog === 'post'" />
+    </template>
+    <template #aside-outline-after>
+      <PostBottom v-if="frontmatter.blog === 'post'"/>
+    </template>
     <!-- <template #home-features-after>
       <ListPosts v-if="frontmatter.index" />
     </template> -->
@@ -8,19 +14,22 @@
     </template> -->
     <!-- <template #layout-top>
       layout-top
-    </template>
-    <template #aside-bottom>
-      aside-bottom
+    </template> -->
+    <!-- <template #doc-after>
+      <PostBottom v-if="frontmatter.blog === 'post'"/>
     </template> -->
   </Layout>
 </template>
 <script setup>
 import DefaultTheme from "vitepress/theme";
 import { useData } from "vitepress";
-import ListPosts from "./components/ListPosts.vue";
+import PostTop from "./components/PostTop.vue";
+import PostBottom from "./components/PostBottom.vue";
 
 const { Layout } = DefaultTheme;
 const { page, frontmatter } = useData();
+
+console.log('frontmatter: ', frontmatter.value);
 
 import { nextTick, provide, onMounted, ref } from "vue";
 

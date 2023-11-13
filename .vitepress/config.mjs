@@ -1,4 +1,5 @@
 import { defineConfig } from "vitepress";
+import { blogConfig } from "../config";
 
 console.log('config')
 
@@ -33,10 +34,24 @@ export default defineConfig({
       message:
         'Released under the <a href="https://github.com/vuejs/vitepress/blob/main/LICENSE">MIT License</a>.',
       copyright:
-        'Copyright © 2019-present <a href="https://github.com/yyx990803">Evan You</a>',
+        'Copyright © 2019-present <a href="https://github.com/yyx990803">LiuYichen</a>',
     },
   },
+  async transformPageData(pageData, ctx) {
+    await processData(pageData, ctx)
+  }
 });
+
+export async function processData(pageData, ctx, aside = 'left', sidebar = false) {
+  const postPattern = blogConfig?.blogPattern ?? 'blog/detail'
+  if (pageData.relativePath.includes(postPattern)) {
+    pageData.frontmatter.blog = 'post'
+    pageData.frontmatter.aside = aside
+    pageData.frontmatter.sidebar = sidebar
+    pageData.frontmatter.prev = false
+    pageData.frontmatter.next = false
+  }
+}
 
 function nav() {
   return [

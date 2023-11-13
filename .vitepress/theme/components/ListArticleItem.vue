@@ -21,18 +21,20 @@
       :href="url"
     >
       <span class="relative">阅读全文</span>
+
       <svg
-        class="relative mt-px overflow-visible ml-2.5 text-[--vp-c-brand-1]"
-        width="3"
-        height="6"
-        viewBox="0 0 3 6"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        viewBox="0 0 24 24"
+        display="inline-block"
+        vertical-align="middle"
+        width="1.2em"
+        height="1.2em"
+        class="relative mt-px overflow-visible text-[--vp-c-brand-1]"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <path d="M0 0L3 3L0 6"></path>
+        <path
+          fill="currentColor"
+          d="m11.293 17.293l1.414 1.414L19.414 12l-6.707-6.707l-1.414 1.414L15.586 11H6v2h9.586z"
+        />
       </svg>
     </a>
   </article>
@@ -46,8 +48,8 @@ defineProps({
 });
 </script>
 <style scoped>
-.article-item{
+.article-item {
   @apply before:absolute before:left-0 before:-top-5 before:w-[5%]
-  before:h-[2px] before:bg-[var(--vp-c-brand-1)]
+  before:h-[2px] before:bg-[var(--vp-c-brand-1)];
 }
 </style>
