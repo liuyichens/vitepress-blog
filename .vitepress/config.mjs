@@ -1,18 +1,26 @@
 import { defineConfig } from "vitepress";
 import { blogConfig } from "../config";
 
-console.log('config')
+console.log("config");
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "My Awesome Project",
   description: "A VitePress Site",
   markdown: {
+    theme: 'material-theme-palenight',
     lineNumbers: true,
-    headers: {
-      level: [2, 3]
+
+    // adjust how header anchors are generated,
+    // useful for integrating with tools that use different conventions
+    anchor: {
+      slugify(str) {
+        return encodeURIComponent(str)
+      }
     },
-    theme: 'material-theme-palenight'
+    config: (md) => {
+      
+    }
   },
   ignoreDeadLinks: true,
   themeConfig: {
@@ -21,6 +29,7 @@ export default defineConfig({
     },
     outline: {
       label: "本章目录",
+      level: [2, 3, 4],
     },
     // https://vitepress.dev/reference/default-theme-config
     nav: nav(),
@@ -39,18 +48,23 @@ export default defineConfig({
     },
   },
   async transformPageData(pageData, ctx) {
-    await processData(pageData, ctx)
-  }
+    await processData(pageData, ctx);
+  },
 });
 
-export async function processData(pageData, ctx, aside = 'left', sidebar = false) {
-  const postPattern = blogConfig?.blogPattern ?? 'blog/detail'
+export async function processData(
+  pageData,
+  ctx,
+  aside = "left",
+  sidebar = false
+) {
+  const postPattern = blogConfig?.blogPattern ?? "blog/detail";
   if (pageData.relativePath.includes(postPattern)) {
-    pageData.frontmatter.blog = 'post'
-    pageData.frontmatter.aside = aside
-    pageData.frontmatter.sidebar = sidebar
-    pageData.frontmatter.prev = false
-    pageData.frontmatter.next = false
+    pageData.frontmatter.blog = "post";
+    pageData.frontmatter.aside = aside;
+    pageData.frontmatter.sidebar = sidebar;
+    pageData.frontmatter.prev = false;
+    pageData.frontmatter.next = false;
   }
 }
 
