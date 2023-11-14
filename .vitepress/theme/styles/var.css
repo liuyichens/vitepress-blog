@@ -136,6 +136,16 @@
   --vp-custom-block-tip-text: var(--vp-c-text-1);
   --vp-custom-block-tip-bg: var(--vp-c-brand-soft);
   --vp-custom-block-tip-code-bg: var(--vp-c-brand-soft);
+
+  --vp-code-block-bg: #282c34;
+  --vp-code-block-color: #ccc;
+  --vp-code-line-number-color: #9e9e9e;
+  --vp-code-line-highlight-color: rgba(0,0,0,.66);
+  --vp-code-copy-code-bg: transparent;
+  --vp-code-copy-code-border-color: var(--vp-code-copy-code-bg);
+  --vp-code-copy-code-hover-border-color: var(--vp-code-copy-code-bg);
+  --vp-code-copy-code-hover-bg: var(--vp-code-copy-code-bg);
+  --vp-code-lang-color: rgba(238,255,255,.8);
 }
 
 .dark {

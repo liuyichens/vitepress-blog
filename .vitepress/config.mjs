@@ -12,6 +12,7 @@ export default defineConfig({
     headers: {
       level: [2, 3]
     },
+    theme: 'material-theme-palenight'
   },
   ignoreDeadLinks: true,
   themeConfig: {

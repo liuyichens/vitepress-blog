@@ -1,0 +1,10 @@
+div[class*="language-"] {
+  @apply relative pt-8 before:absolute before:left-0 before:top-0 before:right-0 before:h-8 after:absolute after:top-[10px] after:left-[12px] after:w-[12px] after:h-[12px] after:rounded-full after:bg-[#fc625d];
+}
+
+div[class*="language-"]::after {
+  box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+}
+div[class*="language-"] .line-numbers-wrapper {
+  @apply top-8;
+}
