@@ -5,8 +5,8 @@ console.log("config");
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "My Awesome Project",
-  description: "A VitePress Site",
+  title: "My Log",
+  description: "A Blog Site",
   markdown: {
     theme: 'material-theme-palenight',
     lineNumbers: true,
