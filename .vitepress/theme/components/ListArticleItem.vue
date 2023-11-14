@@ -12,7 +12,7 @@
         {{ date.string }}
       </div>
       <div
-        class="mt-2 mb-4 prose prose-slate prose-a:relative prose-a:z-10 dark:prose-invert max-w-none"
+        class="mt-2 mb-4 prose prose-slate prose-a:relative prose-a:z-10 dark:prose-invert max-w-none line-clamp-2"
         v-html="excerpt"
       ></div>
     </div>
