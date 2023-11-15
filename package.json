@@ -32,6 +32,8 @@
     }
   },
   "dependencies": {
-    "@vueuse/core": "^10.6.0"
+    "@vueuse/core": "^10.6.0",
+    "lodash": "^4.17.21",
+    "markdown-to-txt": "^2.0.1"
   }
 }

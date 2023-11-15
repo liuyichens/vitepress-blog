@@ -1,5 +1,7 @@
 import { createContentLoader } from "vitepress";
 import { blogConfig } from "../config";
+import { markdownToTxt } from 'markdown-to-txt';
+
 const blogPatern = `${blogConfig.blogPattern}/**/*.md`;
 
 export default createContentLoader(blogPatern, {
@@ -10,7 +12,7 @@ export default createContentLoader(blogPatern, {
         title: frontmatter.title,
         author: frontmatter.author ?? blogConfig?.defaultAuthor,
         url,
-        excerpt,
+        excerpt: markdownToTxt(excerpt.replace(/<[^>]+>/g, '')).replace(/\s+/g, ' '),
         date: formatDate(frontmatter.date),
         tags: frontmatter.tags,
         category: frontmatter.categories ?? blogConfig.defaultCategory,

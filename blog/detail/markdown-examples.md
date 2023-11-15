@@ -47,6 +47,22 @@ export default {
 }
 ```
 
+## HTML
+
+```html
+<style>
+  .box {
+    background-color: #eee;
+  }
+  .container {
+    width: 1190px;
+    margin: 0 auto;
+    background-color: yellow;
+  }
+</style>
+<div class="container"></div>
+```
+
 ## Custom Containers
 
 **Input**

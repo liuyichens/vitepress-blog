@@ -1,5 +1,6 @@
 import { defineConfig } from "vitepress";
 import { blogConfig } from "../config";
+import { loadFile } from "../utils/loadFile";
 
 console.log("config");
 
@@ -14,7 +15,7 @@ export default defineConfig({
     // adjust how header anchors are generated,
     // useful for integrating with tools that use different conventions
     config: (md) => {
-      
+
     }
   },
   ignoreDeadLinks: true,
@@ -30,6 +31,7 @@ export default defineConfig({
     nav: nav(),
     sidebar: {
       "/examples/": examples(),
+      "/favor/": favor(),
     },
 
     socialLinks: [
@@ -65,9 +67,17 @@ export async function processData(
 
 function nav() {
   return [
-    { text: "Home", link: "/" },
-    { text: "Blog", link: "/blog/", activeMatch: "/blog/" },
-    { text: "Examples", link: "/examples/", activeMatch: "/examples/" },
+    { text: "首页", link: "/" },
+    { text: "文章", link: "/blog/", activeMatch: "/blog/" },
+    {
+      text: "收藏", activeMatch: "/favor/",
+      items: favor()
+    },
+    {
+      text: "学习记录", activeMatch: "/notes/",
+      items: notes()
+    },
+    { text: "案例", link: "/examples/", activeMatch: "/examples/" },
   ];
 }
 
@@ -81,4 +91,17 @@ function examples() {
       ],
     },
   ];
+}
+
+
+function favor() {
+  return [
+    { text: "CSS 动画", link: "/favor/css/css-animation" }
+  ]
+}
+
+function notes() {
+  return [
+    
+  ]
 }
