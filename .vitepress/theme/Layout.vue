@@ -29,8 +29,6 @@ import PostBottom from "./components/PostBottom.vue";
 const { Layout } = DefaultTheme;
 const { page, frontmatter } = useData();
 
-console.log('frontmatter: ', frontmatter.value);
-
 import { nextTick, provide, onMounted, ref } from "vue";
 
 const { isDark } = useData();

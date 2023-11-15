@@ -13,7 +13,7 @@ const totalPage = Math.ceil(posts.length / PAGE_SIZE);
 const currentPage = ref(1);
 
 const tags = computed(() => {
-  const allTags = posts.map((p) => p.tags).flat();
+  const allTags = posts.filter(p => p !== '' && p != undefined && p).map((p) => p.tags).flat();
   return [...new Set(allTags)];
 });
 
@@ -83,7 +83,7 @@ const goPage = (page) => {
             :disabled="currentPage === index + 1"
             @click="goPage(`${index === 0 ? '' : index + 1}`)"
           >
-            {{ index + 1 > 10 ? index + 1 : "0" + (index + 1) }}
+            {{ index + 1 >= 10 ? index + 1 : "0" + (index + 1) }}
           </button>
         </li>
         <li class="page-next">
@@ -126,7 +126,7 @@ const goPage = (page) => {
           <span class="title relative">标签</span>
         </h5>
         <ul class="space-y-6 lg:space-y-2">
-          <li v-for="(tag, index) in tags" :key="index">
+          <li v-for="(tag, index) in tags.slice(0, 1000)" :key="index">
             <a
               class="block pl-1 text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300 text-sm"
               href=""
