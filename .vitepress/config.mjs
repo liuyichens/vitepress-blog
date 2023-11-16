@@ -1,6 +1,6 @@
 import { defineConfig } from "vitepress";
-import { blogConfig } from "../config";
-import { loadFile } from "../utils/loadFile";
+import { blogConfig, setPosts, getPosts } from "../config";
+import { loadPosts } from "../utils/loadPosts";
 
 console.log("config");
 
@@ -9,14 +9,12 @@ export default defineConfig({
   title: "My Log",
   description: "A Blog Site",
   markdown: {
-    theme: 'material-theme-palenight',
+    theme: "material-theme-palenight",
     lineNumbers: true,
 
     // adjust how header anchors are generated,
     // useful for integrating with tools that use different conventions
-    config: (md) => {
-
-    }
+    config: (md) => {},
   },
   ignoreDeadLinks: true,
   themeConfig: {
@@ -69,13 +67,18 @@ function nav() {
   return [
     { text: "首页", link: "/" },
     { text: "文章", link: "/blog/", activeMatch: "/blog/" },
+    { text: "分类", link: "/category/", activeMatch: "/category/" },
+    { text: "标签", link: "/tag/", activeMatch: "/tag/" },
+    { text: "归档", link: "/archive/", activeMatch: "/archive/" },
     {
-      text: "收藏", activeMatch: "/favor/",
-      items: favor()
+      text: "收藏",
+      activeMatch: "/favor/",
+      items: favor(),
     },
     {
-      text: "学习记录", activeMatch: "/notes/",
-      items: notes()
+      text: "学习记录",
+      activeMatch: "/notes/",
+      items: notes(),
     },
     { text: "案例", link: "/examples/", activeMatch: "/examples/" },
   ];
@@ -93,15 +96,10 @@ function examples() {
   ];
 }
 
-
 function favor() {
-  return [
-    { text: "CSS 动画", link: "/favor/css/css-animation" }
-  ]
+  return [{ text: "CSS 动画", link: "/favor/css/css-animation" }];
 }
 
 function notes() {
-  return [
-    
-  ]
+  return [];
 }

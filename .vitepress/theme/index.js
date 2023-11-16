@@ -4,6 +4,9 @@ import DefaultTheme from 'vitepress/theme'
 import './styles/main.css'
 import CusLayout from './Layout.vue'
 import ListPosts from './components/ListPosts.vue'
+import Archive from './components/Archive.vue'
+import Category from './components/Category.vue'
+import Tag from './components/Tag.vue'
 
 /** @type {import('vitepress').Theme} */
 export default {
@@ -12,5 +15,8 @@ export default {
   enhanceApp({ app, router, siteData }) {
     // ...
     app.component('ListPosts',ListPosts)
+    app.component('Archive',Archive)
+    app.component('Category',Category)
+    app.component('Tag',Tag)
   }
 }

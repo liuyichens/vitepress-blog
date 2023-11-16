@@ -11,6 +11,7 @@ export default {
   },
   plugins: [
     require('@tailwindcss/typography'),
+    require('@designbycode/tailwindcss-text-stroke'),
   ],
 }
 
