@@ -67,8 +67,8 @@ const currentPosts = computed(() => {
       <Pagination :current-page="currentPage" :total-page="totalPage" />
     </template>
     <template #asideList>
-      <AsideListItem :title="`分类`" :items="categories"/>
-      <AsideListItem :title="`标签`" :items="tags"/>
+      <AsideListItem :title="`分类`" :items="categories" :path="`/category/`"/>
+      <AsideListItem :title="`标签`" :items="tags" :path="`/tag/`"/>
     </template>
   </PageTemplate>
 </template>
