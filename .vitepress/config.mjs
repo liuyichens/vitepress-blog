@@ -31,7 +31,6 @@ export default defineConfig({
     nav: nav(),
     sidebar: {
       "/examples/": examples(),
-      "/favor/": favor(),
     },
 
     socialLinks: [
@@ -39,9 +38,9 @@ export default defineConfig({
     ],
     footer: {
       message:
-        'Released under the <a href="https://github.com/vuejs/vitepress/blob/main/LICENSE">MIT License</a>.',
+        'Released under the <a href="">MIT License</a>.',
       copyright:
-        'Copyright © 2019-present <a href="https://github.com/yyx990803">LiuYichen</a>',
+        'Copyright © 2019-present <a href="">LiuYichen</a>',
     },
   },
   async transformPageData(pageData, ctx) {
@@ -70,11 +69,10 @@ function nav() {
     { text: "首页", link: "/" },
     { text: "文章", link: "/blog/", activeMatch: "/blog/" },
     {
-      text: "收藏", activeMatch: "/favor/",
-      items: favor()
+      text: "收藏", link: "/favor/", activeMatch: "/favor/"
     },
     {
-      text: "学习记录", activeMatch: "/notes/",
+      text: "学习记录", activeMatch: "/notes/$",
       items: notes()
     },
     { text: "案例", link: "/examples/", activeMatch: "/examples/" },
@@ -94,14 +92,8 @@ function examples() {
 }
 
 
-function favor() {
-  return [
-    { text: "CSS 动画", link: "/favor/css/css-animation" }
-  ]
-}
-
 function notes() {
   return [
-    
+
   ]
 }
