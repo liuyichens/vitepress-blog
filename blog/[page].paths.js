@@ -1,4 +1,4 @@
-import { globby } from "globby";
+import { loadPosts } from "../utils/loadPosts"
 import { blogConfig } from "../config";
 
 const PAGE_SIZE = blogConfig.pageSize;
@@ -6,8 +6,8 @@ const PAGE_SIZE = blogConfig.pageSize;
 console.log('page')
 
 async function getFiles() {
-  let paths = await globby([`${blogConfig.blogPattern}/**/*.md`]);
-  return paths.length;
+  const allPosts = await loadPosts()
+  return allPosts.length;
 }
 
 export default {

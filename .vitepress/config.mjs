@@ -1,13 +1,12 @@
 import { defineConfig } from "vitepress";
-import { blogConfig, setPosts, getPosts } from "../config";
-import { loadPosts } from "../utils/loadPosts";
+import { blogConfig } from "../config";
 
 console.log("config");
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "My Log",
-  description: "A Blog Site",
+  title: "思享",
+  description: "探索知识，分享生活",
   markdown: {
     theme: "material-theme-palenight",
     lineNumbers: true,
