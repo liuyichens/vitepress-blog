@@ -1,6 +1,6 @@
 import { defineConfig } from "vitepress";
 import { blogConfig, setPosts, getPosts } from "../config";
-import { loadPosts } from "../utils/loadPosts";
+import { createSiderBarData } from "../utils/loadSideBar";
 
 console.log("config");
 
@@ -30,6 +30,7 @@ export default defineConfig({
     sidebar: {
       "/examples/": examples(),
       "/favor/": favor(),
+      "/note/HTML": createSiderBarData('note/HTML', true)
     },
 
     socialLinks: [
@@ -76,8 +77,7 @@ function nav() {
       items: favor(),
     },
     {
-      text: "学习记录",
-      activeMatch: "/notes/",
+      text: "技术笔记",
       items: notes(),
     },
     { text: "案例", link: "/examples/", activeMatch: "/examples/" },
@@ -101,5 +101,8 @@ function favor() {
 }
 
 function notes() {
-  return [];
+  return [
+    {text: 'HTML',link: '/note/HTML/'},
+    {text: 'CSS',link: '/note/CSS'},
+  ];
 }
