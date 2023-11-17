@@ -7,7 +7,7 @@
       <PostBottom v-if="frontmatter.blog === 'post'"/>
     </template>
     <!-- <template #home-features-after>
-      <ListPosts v-if="frontmatter.index" />
+      {{ site.themeConfig.sidebar }}
     </template> -->
     <!-- <template #home-features-after>
         <Home/>
@@ -27,7 +27,7 @@ import PostTop from "./components/PostTop.vue";
 import PostBottom from "./components/PostBottom.vue";
 
 const { Layout } = DefaultTheme;
-const { page, frontmatter } = useData();
+const { page, frontmatter, site } = useData();
 
 console.log('frontmatter: ', frontmatter.value);
 
