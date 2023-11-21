@@ -7,6 +7,8 @@ import ListPosts from './components/ListPosts.vue'
 import Archive from './components/Archive.vue'
 import Category from './components/Category.vue'
 import Tag from './components/Tag.vue'
+import NotFound from './components/NotFound.vue'
+import Catalogue from './components/Catalogue.vue'
 
 /** @type {import('vitepress').Theme} */
 export default {
@@ -14,9 +16,11 @@ export default {
   Layout: CusLayout,
   enhanceApp({ app, router, siteData }) {
     // ...
-    app.component('ListPosts',ListPosts)
-    app.component('Archive',Archive)
-    app.component('Category',Category)
-    app.component('Tag',Tag)
+    app.component('ListPosts', ListPosts)
+    app.component('Archive', Archive)
+    app.component('Category', Category)
+    app.component('Tag', Tag)
+    app.component('NotFound', NotFound)
+    app.component('Catalogue', Catalogue)
   }
 }

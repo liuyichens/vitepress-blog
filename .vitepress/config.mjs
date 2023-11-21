@@ -1,6 +1,6 @@
 import { defineConfig } from "vitepress";
 import { blogConfig } from "../config";
-import { createSiderBarData } from "../utils/loadSideBar";
+import { getSiderBar } from "../utils/loadSideBar";
 
 console.log("config");
 
@@ -27,22 +27,14 @@ export default defineConfig({
     },
     // https://vitepress.dev/reference/default-theme-config
     nav: nav(),
-    sidebar: {
-      "/examples/": examples(),
-      "/favor/": favor(),
-      // "/note/HTML": createSiderBarData('note/HTML', true),
-      // "/note/CSS": createSiderBarData('note/CSS', true),
-      "/note/JavaScript": createSiderBarData('note/JavaScript', true)
-    },
+    sidebar: sidebar(),
 
     socialLinks: [
       { icon: "github", link: "https://github.com/vuejs/vitepress" },
     ],
     footer: {
-      message:
-        'Released under the <a href="">MIT License</a>.',
-      copyright:
-        'Copyright © 2019-present <a href="">LiuYichen</a>',
+      message: 'Released under the <a href="">MIT License</a>.',
+      copyright: 'Copyright © 2019-present <a href="">LiuYichen</a>',
     },
   },
   async transformPageData(pageData, ctx) {
@@ -63,6 +55,11 @@ export async function processData(
     pageData.frontmatter.sidebar = sidebar;
     pageData.frontmatter.prev = false;
     pageData.frontmatter.next = false;
+  } else if (
+    pageData.relativePath.startsWith("note/") &&
+    pageData.relativePath.endsWith("index.md")
+  ) {
+    pageData.frontmatter.catalogue = true;
   }
 }
 
@@ -74,8 +71,9 @@ function nav() {
     { text: "标签", link: "/tag/", activeMatch: "/tag/" },
     { text: "归档", link: "/archive/", activeMatch: "/archive/" },
     {
-      text: "收藏", activeMatch: "/favor/",
-      items: favor()
+      text: "收藏",
+      activeMatch: "/favor/",
+      items: favor(),
     },
     {
       text: "技术笔记",
@@ -83,6 +81,16 @@ function nav() {
     },
     { text: "案例", link: "/examples/", activeMatch: "/examples/" },
   ];
+}
+
+function sidebar() {
+  return {
+    "/examples/": examples(),
+    "/favor/": favor(),
+    "/note/HTML/": getSiderBar("note/HTML", true),
+    "/note/CSS/": getSiderBar("note/CSS", true),
+    "/note/JavaScript/": getSiderBar("note/JavaScript", true),
+  };
 }
 
 function examples() {
@@ -97,24 +105,23 @@ function examples() {
   ];
 }
 
-
 function favor() {
-  return [
-    { text: "CSS 动画", link: "/favor/css/css-animation" }
-  ]
+  return [{ text: "CSS 动画", link: "/favor/css/css-animation" }];
 }
 
 function notes() {
   return [
     {
       text: "HTML",
-      link: '/note/HTML/'
-    },{
+      link: "/note/HTML/",
+    },
+    {
       text: "CSS",
-      link: '/note/CSS/'
-    },{
+      link: "/note/CSS/",
+    },
+    {
       text: "JavaScript",
-      link: '/note/JavaScript/'
-    }
+      link: "/note/JavaScript/",
+    },
   ];
 }

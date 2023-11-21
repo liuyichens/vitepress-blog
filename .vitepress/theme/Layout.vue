@@ -2,10 +2,16 @@
   <Layout>
     <template #doc-before>
       <PostTop v-if="frontmatter.blog === 'post'" />
+      <div v-if="frontmatter.catalogue">
+        <Catalogue/>
+      </div>
     </template>
     <template #aside-outline-after>
       <PostBottom v-if="frontmatter.blog === 'post'"/>
     </template>
+    <!-- <template #not-found>
+      <NotFound/>
+    </template> -->
     <!-- <template #home-features-after>
       {{ site.themeConfig.sidebar }}
     </template> -->
@@ -28,8 +34,6 @@ import PostBottom from "./components/PostBottom.vue";
 
 const { Layout } = DefaultTheme;
 const { page, frontmatter, site } = useData();
-
-console.log('frontmatter: ', frontmatter.value);
 
 import { nextTick, provide, onMounted, ref } from "vue";
 

@@ -1,3 +1,4 @@
 ---
 title: JavaScript
+catalogue: true
 ---
