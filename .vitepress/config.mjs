@@ -1,21 +1,20 @@
 import { defineConfig } from "vitepress";
 import { blogConfig } from "../config";
+import { getSiderBar } from "../utils/loadSideBar";
 
 console.log("config");
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "My Log",
-  description: "A Blog Site",
+  title: "思享",
+  description: "探索知识，分享生活",
   markdown: {
-    theme: 'material-theme-palenight',
+    theme: "material-theme-palenight",
     lineNumbers: true,
 
     // adjust how header anchors are generated,
     // useful for integrating with tools that use different conventions
-    config: (md) => {
-      
-    }
+    config: (md) => {},
   },
   ignoreDeadLinks: true,
   themeConfig: {
@@ -28,18 +27,14 @@ export default defineConfig({
     },
     // https://vitepress.dev/reference/default-theme-config
     nav: nav(),
-    sidebar: {
-      "/examples/": examples(),
-    },
+    sidebar: sidebar(),
 
     socialLinks: [
       { icon: "github", link: "https://github.com/vuejs/vitepress" },
     ],
     footer: {
-      message:
-        'Released under the <a href="https://github.com/vuejs/vitepress/blob/main/LICENSE">MIT License</a>.',
-      copyright:
-        'Copyright © 2019-present <a href="https://github.com/yyx990803">LiuYichen</a>',
+      message: 'Released under the <a href="">MIT License</a>.',
+      copyright: 'Copyright © 2019-present <a href="">LiuYichen</a>',
     },
   },
   async transformPageData(pageData, ctx) {
@@ -60,15 +55,42 @@ export async function processData(
     pageData.frontmatter.sidebar = sidebar;
     pageData.frontmatter.prev = false;
     pageData.frontmatter.next = false;
+  } else if (
+    pageData.relativePath.startsWith("note/") &&
+    pageData.relativePath.endsWith("index.md")
+  ) {
+    pageData.frontmatter.catalogue = true;
   }
 }
 
 function nav() {
   return [
-    { text: "Home", link: "/" },
-    { text: "Blog", link: "/blog/", activeMatch: "/blog/" },
-    { text: "Examples", link: "/examples/", activeMatch: "/examples/" },
+    { text: "首页", link: "/" },
+    { text: "文章", link: "/blog/", activeMatch: "/blog/" },
+    { text: "分类", link: "/category/", activeMatch: "/category/" },
+    { text: "标签", link: "/tag/", activeMatch: "/tag/" },
+    { text: "归档", link: "/archive/", activeMatch: "/archive/" },
+    {
+      text: "收藏",
+      activeMatch: "/favor/",
+      items: favor(),
+    },
+    {
+      text: "技术笔记",
+      items: notes(),
+    },
+    { text: "案例", link: "/examples/", activeMatch: "/examples/" },
   ];
+}
+
+function sidebar() {
+  return {
+    "/examples/": examples(),
+    "/favor/": favor(),
+    "/note/HTML/": getSiderBar("note/HTML", true),
+    "/note/CSS/": getSiderBar("note/CSS", true),
+    "/note/JavaScript/": getSiderBar("note/JavaScript", true),
+  };
 }
 
 function examples() {
@@ -79,6 +101,27 @@ function examples() {
         { text: "Markdown Examples", link: "/examples/markdown-examples" },
         { text: "Runtime API Examples", link: "/examples/api-examples" },
       ],
+    },
+  ];
+}
+
+function favor() {
+  return [{ text: "CSS 动画", link: "/favor/css/css-animation" }];
+}
+
+function notes() {
+  return [
+    {
+      text: "HTML",
+      link: "/note/HTML/",
+    },
+    {
+      text: "CSS",
+      link: "/note/CSS/",
+    },
+    {
+      text: "JavaScript",
+      link: "/note/JavaScript/",
     },
   ];
 }

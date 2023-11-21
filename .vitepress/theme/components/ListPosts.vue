@@ -1,8 +1,10 @@
 <script setup name="home">
 import PageTemplate from "./PageTemplate.vue";
 import ListArticleItem from "./ListArticleItem.vue";
+import Pagination from "./Pagination.vue";
+import AsideListItem from "./AsideListItem.vue";
 import { ref, computed } from "vue";
-import { useData, useRouter } from "vitepress";
+import { useData } from "vitepress";
 import { data as posts } from "../../../utils/posts.data";
 import { blogConfig } from "../../../config";
 const { params } = useData();
@@ -38,15 +40,6 @@ const currentPosts = computed(() => {
   const end = start + PAGE_SIZE;
   return posts.slice(start, end);
 });
-
-const router = useRouter();
-const goPage = (page) => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-  router.go(`/blog/${page}`);
-};
 </script>
 
 <template>
@@ -61,11 +54,17 @@ const goPage = (page) => {
             '--enter-step': '60ms',
           }"
         >
-          <ListArticleItem :url="url" :title="title" :date="date" :excerpt="excerpt"/>
+          <ListArticleItem
+            :url="url"
+            :title="title"
+            :date="date"
+            :excerpt="excerpt"
+          />
         </li>
       </ul>
     </template>
     <template #paginationWrapper>
+<<<<<<< HEAD
       <ul class="pages flex">
         <li class="page-pre">
           <button :disabled="currentPage === 1" @click="goPage('')">←</button>
@@ -136,6 +135,13 @@ const goPage = (page) => {
           </li>
         </ul>
       </div>
+=======
+      <Pagination :current-page="currentPage" :total-page="totalPage" />
+    </template>
+    <template #asideList>
+      <AsideListItem :title="`分类`" :items="categories" :path="`/category/`"/>
+      <AsideListItem :title="`标签`" :items="tags" :path="`/tag/`"/>
+>>>>>>> master
     </template>
   </PageTemplate>
 </template>

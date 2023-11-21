@@ -2,12 +2,18 @@
   <Layout>
     <template #doc-before>
       <PostTop v-if="frontmatter.blog === 'post'" />
+      <div v-if="frontmatter.catalogue">
+        <Catalogue/>
+      </div>
     </template>
     <template #aside-outline-after>
       <PostBottom v-if="frontmatter.blog === 'post'"/>
     </template>
+    <!-- <template #not-found>
+      <NotFound/>
+    </template> -->
     <!-- <template #home-features-after>
-      <ListPosts v-if="frontmatter.index" />
+      {{ site.themeConfig.sidebar }}
     </template> -->
     <!-- <template #home-features-after>
         <Home/>
@@ -27,7 +33,11 @@ import PostTop from "./components/PostTop.vue";
 import PostBottom from "./components/PostBottom.vue";
 
 const { Layout } = DefaultTheme;
+<<<<<<< HEAD
 const { page, frontmatter } = useData();
+=======
+const { page, frontmatter, site } = useData();
+>>>>>>> master
 
 import { nextTick, provide, onMounted, ref } from "vue";
 
