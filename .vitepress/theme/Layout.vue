@@ -31,15 +31,10 @@ import DefaultTheme from "vitepress/theme";
 import { useData } from "vitepress";
 import PostTop from "./components/PostTop.vue";
 import PostBottom from "./components/PostBottom.vue";
+import { nextTick, provide, onMounted, ref } from "vue";
 
 const { Layout } = DefaultTheme;
-<<<<<<< HEAD
-const { page, frontmatter } = useData();
-=======
 const { page, frontmatter, site } = useData();
->>>>>>> master
-
-import { nextTick, provide, onMounted, ref } from "vue";
 
 const { isDark } = useData();
 const content = ref();

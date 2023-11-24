@@ -15,7 +15,10 @@ const totalPage = Math.ceil(posts.length / PAGE_SIZE);
 const currentPage = ref(1);
 
 const tags = computed(() => {
-  const allTags = posts.filter(p => p !== '' && p != undefined && p).map((p) => p.tags).flat();
+  const allTags = posts
+    .filter((p) => p !== "" && p != undefined && p)
+    .map((p) => p.tags)
+    .flat();
   return [...new Set(allTags)];
 });
 
@@ -64,84 +67,11 @@ const currentPosts = computed(() => {
       </ul>
     </template>
     <template #paginationWrapper>
-<<<<<<< HEAD
-      <ul class="pages flex">
-        <li class="page-pre">
-          <button :disabled="currentPage === 1" @click="goPage('')">←</button>
-        </li>
-        <li
-          v-for="(_, index) in totalPage"
-          :key="index"
-          :class="[
-            'page-item',
-            `page-item-${index + 1}`,
-            index + 1 === currentPage ? 'page-item-active' : '',
-          ]"
-        >
-          <button
-            :disabled="currentPage === index + 1"
-            @click="goPage(`${index === 0 ? '' : index + 1}`)"
-          >
-            {{ index + 1 >= 10 ? index + 1 : "0" + (index + 1) }}
-          </button>
-        </li>
-        <li class="page-next">
-          <button
-            :disabled="currentPage === totalPage"
-            @click="
-              goPage(
-                `${currentPage === totalPage ? totalPage : currentPage + 1}`
-              )
-            "
-          >
-            →
-          </button>
-        </li>
-      </ul>
-    </template>
-    <template #asideList>
-      <div class="">
-        <h5
-          class="widgt-title relative mb-8 lg:mb-3 font-semibold text-slate-900 dark:text-slate-200"
-        >
-          <span class="title relative">分类</span>
-        </h5>
-        <ul class="space-y-6 lg:space-y-2">
-          <li v-for="(count, category, index) in categories" :key="index">
-            <a
-              class="block pl-1 text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300 text-sm"
-              href=""
-            >
-              <span class="mx-1">{{ category }}</span
-              ><sup class="text-[var(--vp-c-brand-1)]">{{ count }}</sup>
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="">
-        <h5
-          class="widgt-title relative mb-8 lg:mb-3 font-semibold text-slate-900 dark:text-slate-200"
-        >
-          <span class="title relative">标签</span>
-        </h5>
-        <ul class="space-y-6 lg:space-y-2">
-          <li v-for="(tag, index) in tags.slice(0, 1000)" :key="index">
-            <a
-              class="block pl-1 text-slate-700 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300 text-sm"
-              href=""
-            >
-              <span class="mx-1">{{ tag }}</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-=======
       <Pagination :current-page="currentPage" :total-page="totalPage" />
     </template>
     <template #asideList>
-      <AsideListItem :title="`分类`" :items="categories" :path="`/category/`"/>
-      <AsideListItem :title="`标签`" :items="tags" :path="`/tag/`"/>
->>>>>>> master
+      <AsideListItem :title="`分类`" :items="categories" :path="`/category/`" />
+      <AsideListItem :title="`标签`" :items="tags" :path="`/tag/`" />
     </template>
   </PageTemplate>
 </template>

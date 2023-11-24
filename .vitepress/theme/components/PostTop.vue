@@ -12,11 +12,7 @@ const route = useRoute();
 const post = computed(() => posts[findCurrentIndex()])
 
 function findCurrentIndex() {
-<<<<<<< HEAD
-  const currentPath = decodeURIComponent(route.path);
-=======
   const currentPath =decodeURIComponent(route.path)
->>>>>>> master
   const result = posts.findIndex((p) => p.url === currentPath);
   if (result === -1) console.error(`blog post missing: ${route.path}`);
   return result;
