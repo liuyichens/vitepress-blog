@@ -1,5 +1,5 @@
 ---
-title: {{ $params.category }}
+title: 分类页
 layout: home
 ---
 
