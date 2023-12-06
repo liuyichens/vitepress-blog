@@ -14,7 +14,7 @@ export default defineConfig({
 
     // adjust how header anchors are generated,
     // useful for integrating with tools that use different conventions
-    config: (md) => { },
+    config: (md) => {},
   },
   ignoreDeadLinks: true,
   themeConfig: {
@@ -34,26 +34,12 @@ export default defineConfig({
     ],
     footer: {
       message: 'Released under the <a href="">MIT License</a>.',
-      copyright: 'Copyright © 2019-present <a href="">LiuYichen</a>',
+      copyright: 'Copyright © 2019-present <a href="">LiuYichen</a>  <br/> <a href="https://beian.miit.gov.cn/" target="_blank">皖ICP备2021007691号-1</a>',
     },
-  },
-  vite: {
-    build: {
-      chunkSizeWarningLimit: 1500,
-      rollupOptions: {
-        output: {
-          manualChunks(id) {
-            if (id.includes("node_modules")) {
-              return id.toString().split("node_modules/")[1].split("/")[0].toString();
-            }
-          }
-        }
-      }
-    }
   },
   async transformPageData(pageData, ctx) {
     await processData(pageData, ctx);
-  }
+  },
 });
 
 export async function processData(
